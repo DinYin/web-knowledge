@@ -147,3 +147,35 @@ react团队在怎么使用hooks的 官方文档 中，强调了两点主要的�
 
 创建两个空数组，分别用来存放 setters 和 state，将 指针 指到 0 的位置：
 ![state初始化](./img/one.jpg)
+
+2) 组件首次render
+
+当首次render这个函数组件的时候。
+
+每一个 useState 调用，当 首次 执行的时候，在 setter 数组里加入一个 setter 函数(和对应的数组index关联)；然后，将 state 加入对应的 state 数组里：
+
+ const [count, setCount] = useState(0);
+ 
+state|setter|index
+---|:--:|---:
+count|setCount|0
+
+
+组件后续(非首次)render
+
+后续组件的每次render，指针都会重置为 0 ，每调用一次 useState，都会返回指针对应的两个数组里的 state 和 setter，然后将指针位置 +1。
+
+3)第二次render
+ const [fruit, setFruit] = useState('banana');
+state|setter|index
+---|:--:|---:
+count|setCount|0
+fruit|setFruit|1
+
+4)第三次次render
+  const [todos, setTodos] = useState([{ text: 'Learn Hooks' }]);
+state|setter|index
+---|:--:|---:
+count|setCount|0
+fruit|setFruit|1
+todos|setTodos|2
