@@ -132,3 +132,18 @@ function Example() {
 为啥会出现这个问题呢？
 
 # 让我们揭开hooks神秘的面纱
+
+## hooks的原则
+react团队在怎么使用hooks的 官方文档 中，强调了两点主要的使用原则：
+
+- 不要 在 循环、条件语句或者嵌套函数中调用hooks
+- 只能在 React 函数组件中调用hooks
+
+## hooks中的state管理，只是在操作数组
+
+让我们来想想react内部会怎么来实现 useState 呢。在下面的实现里，state 是存放在被render的组件外面，并且这个state不会和其他组件共享，同时，在这个组件后续render中，能够通过特定的作用域方式，访问到这个state。
+
+1) state初始化
+
+创建两个空数组，分别用来存放 setters 和 state，将 指针 指到 0 的位置：
+![state初始化](./img/one.jpg)
