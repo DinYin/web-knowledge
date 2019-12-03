@@ -23,3 +23,112 @@ Hooks 顾名思义，字面意义上来说就是 React 钩子的概念。拥有�
 2、不用关心this指向
 3、不用关心生命周期
 4、状态共享
+
+class组件
+```
+import styles from "./index.css";
+
+class Example extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0
+    };
+  }
+
+  render() {
+    return (
+      <div className={styles.classDome}>
+        <h1>Class Dome</h1>
+        <p>You clicked {this.state.count} times</p>
+        <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+          Click me
+        </button>
+      </div>
+    );
+  }
+}
+export default Example;
+
+```
+
+同样的功能hooks写法
+```
+import { useState, useEffect } from "react";
+import styles from "./index.css";
+
+function Example() {
+  const [count, setCount] = useState(0);
+	console.log('useState(0):', count, setCount)
+	  // 类似于componentDidMount 和 componentDidUpdate:
+	useEffect(() => {
+		// 更新文档的标题
+		document.title = `clicked ${count} times`;
+	});
+  return (
+    <div className={styles.hooksDome}>
+      <h1>Hooks Dome</h1>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
+  );
+}
+export default Example;
+
+```
+
+看到这里 会有一个疑问，为啥useState(0)，每次都是递增的，Example也只是一个函数而已，应该每次都会销毁，重新赋值啊，（不考虑闭包）
+```
+function add(n) {
+    const result = 0;
+    return result + 1;
+}
+
+add(1); //1
+add(1); //1
+
+```
+其实是react-hooks做了记住历史值，当函次再次执行的时候，都是拿的上一次执行完的状态值作为初始值。
+
+新的问题 hooks是怎么记住历史值的呢？
+
+## 多个状态值
+上面的例子 我们只有一个  `const [count, setCount] = useState(0)`;但很多情况 我们是需要多个状态值的
+
+```
+import { useState, useEffect } from "react";
+import styles from "./index.css";
+
+function Example() {
+  const [count, setCount] = useState(0);
+  const [fruit, setFruit] = useState('banana');
+  const [todos, setTodos] = useState([{ text: 'Learn Hooks' }]);
+  return (
+    <div className={styles.hooksDome}>
+      <h1>Hooks Dome</h1>
+      <p>You clicked {count} times</p>
+      <p>水果：{fruit} </p>
+      <p>todos：{todos} </p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
+  );
+}
+export default Example;
+
+```
+如果上面的代码改成下面的
+```
+let firstRender = true;
+
+function Example() {
+  const [count, setCount] = useState(0);
+  if(firstRender){
+    const [fruit, setFruit] = useState('banana');
+    firstRender = false;
+  }
+// react-dom.development.js:16332 Uncaught Error: Rendered fewer hooks than expected. This may be caused by an accidental early return statement.
+// 呈现的钩子比预期的少。这可能是由于意外的提前返回语句造成的。
+```
+为啥会出现这个问题呢？
+
+# 让我们揭开hooks神秘的面纱

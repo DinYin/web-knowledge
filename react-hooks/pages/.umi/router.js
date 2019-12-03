@@ -18,6 +18,11 @@ const routes = [
     component: require('../hooks.js').default,
   },
   {
+    path: '/hooksTwo',
+    exact: true,
+    component: require('../hooksTwo.js').default,
+  },
+  {
     path: '/',
     exact: true,
     component: require('../index.js').default,

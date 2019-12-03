@@ -3,7 +3,7 @@ import styles from "./index.css";
 
 function Example() {
   const [count, setCount] = useState(0);
-	console.log('useState(0):', count, setCount)
+	console.log('useState(0):', count)
 	  // 类似于componentDidMount 和 componentDidUpdate:
 	useEffect(() => {
 		// 更新文档的标题
