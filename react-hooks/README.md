@@ -1,4 +1,4 @@
-#30分钟精通React Hooks
+# 30分钟精通React Hooks
 ```
 # 安装
 $ yarn global add umi # 或者 npm install -g umi
@@ -167,6 +167,7 @@ count|setCount|0
 
 3)第二次render
  const [fruit, setFruit] = useState('banana');
+ 
 
 state|setter|index
 ---|:--:|---:
@@ -176,11 +177,14 @@ fruit|setFruit|1
 4)第三次次render
   const [todos, setTodos] = useState([{ text: 'Learn Hooks' }]);
 
+
 state|setter|index
 ---|:--:|---:
 count|setCount|0
 fruit|setFruit|1
 todos|setTodos|2
+
+
 
 当我们了解 React Hooks 的简单原理，发现Hooks 的串联不是一个数组，但是是一个链式的数据结构，从根节点 workInProgressHook 向下通过 next 进行串联。这也就是为什么 Hooks 不能嵌套使用，不能在条件判断中使用，不能在循环中使用。否则会破坏链式结构
 
