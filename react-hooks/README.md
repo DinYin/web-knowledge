@@ -167,6 +167,7 @@ count|setCount|0
 
 3)第二次render
  const [fruit, setFruit] = useState('banana');
+
 state|setter|index
 ---|:--:|---:
 count|setCount|0
@@ -174,8 +175,38 @@ fruit|setFruit|1
 
 4)第三次次render
   const [todos, setTodos] = useState([{ text: 'Learn Hooks' }]);
+
 state|setter|index
 ---|:--:|---:
 count|setCount|0
 fruit|setFruit|1
 todos|setTodos|2
+
+当我们了解 React Hooks 的简单原理，发现Hooks 的串联不是一个数组，但是是一个链式的数据结构，从根节点 workInProgressHook 向下通过 next 进行串联。这也就是为什么 Hooks 不能嵌套使用，不能在条件判断中使用，不能在循环中使用。否则会破坏链式结构
+
+
+type Hooks = {
+	memoizedState: any, // 指向当前渲染节点 Fiber
+  baseState: any, // 初始化 initialState， 已经每次 dispatch 之后 newState
+  baseUpdate: Update<any> | null,// 当前需要更新的 Update ，每次更新完之后，会赋值上一个 update，方便 react 在渲染错误的边缘，数据回溯
+  queue: UpdateQueue<any> | null,// UpdateQueue 通过
+  next: Hook | null, // link 到下一个 hooks，通过 next 串联每一 hooks
+}
+ 
+type Effect = {
+  tag: HookEffectTag, // effectTag 标记当前 hook 作用在 life-cycles 的哪一个阶段
+  create: () => mixed, // 初始化 callback
+  destroy: (() => mixed) | null, // 卸载 callback
+  deps: Array<mixed> | null,
+  next: Effect, // 同上
+}
+```
+var newHook = {
+    memoizedState: currentHook.memoizedState,
+    baseState: currentHook.baseState,
+    queue: currentHook.queue,
+    baseUpdate: currentHook.baseUpdate,
+    next: null
+  };
+```
+    

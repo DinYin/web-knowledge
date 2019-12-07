@@ -3,7 +3,7 @@ import styles from "./index.css";
 
 let firstRender = true;
 
-function Example() {
+function HooksTwo() {
   const [count, setCount] = useState(0);
 //   if(firstRender){
     const [fruit, setFruit] = useState('banana');
@@ -20,4 +20,4 @@ function Example() {
     </div>
   );
 }
-export default Example;
+export default HooksTwo;

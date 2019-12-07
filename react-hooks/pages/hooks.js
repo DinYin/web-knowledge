@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "./index.css";
 
-function Example() {
+function HooksOne() {
   const [count, setCount] = useState(0);
 	console.log('useState(0):', count)
 	  // 类似于componentDidMount 和 componentDidUpdate:
@@ -17,4 +17,4 @@ function Example() {
     </div>
   );
 }
-export default Example;
+export default HooksOne;
