@@ -1,16 +1,16 @@
 
 import styles from './index.css';
-import HooksDome from './hooks';
-import HooksDomeTwo from './hooksTwo';
-import ClassDome from './class';
+import Hooks from './hooks';
+import HooksTwo from './hooksTwo';
+import Class from './class';
 
 export default function() {
   return (
     <div>
-      <h1>Page index</h1>
-      <ClassDome />
-      <HooksDome />
-      <HooksDomeTwo />
+      <h1>class Component VS function Component</h1>
+      <Class />
+      <Hooks />
+      <HooksTwo />
     </div>
   );
 }

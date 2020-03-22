@@ -3,11 +3,11 @@ import styles from "./index.css";
 
 function HooksOne() {
   const [count, setCount] = useState(0);
-	console.log('useState(0):', count)
+  console.log('useState:', count)
 	  // 类似于componentDidMount 和 componentDidUpdate:
 	useEffect(() => {
-		// 更新文档的标题
-		document.title = `clicked ${count} times`;
+    // 更新文档的标题
+	console.log('useEffect:', count)
 	});
   return (
     <div className={styles.hooksDome}>

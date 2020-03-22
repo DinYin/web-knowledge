@@ -8,12 +8,16 @@ class Example extends React.Component {
     };
   }
 
+  onChange = () => {
+    this.setState({ count: this.state.count + 1 })
+  }
+
   render() {
     return (
       <div className={styles.classDome}>
         <h1>Class Dome</h1>
         <p>You clicked {this.state.count} times</p>
-        <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+        <button onClick={this.onChange}>
           Click me
         </button>
       </div>
