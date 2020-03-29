@@ -14,6 +14,8 @@ import React, {
   useRef,
   useImperativeHandle
 } from 'react'
+import  "./index.css";
+
 
 const TestContext = createContext('default')
 
@@ -23,7 +25,7 @@ const Comp = memo((props) => {
   })
 
   const updateValue = () => {
-    props.onClick(props.name + '1')
+    props.onClick(props.name + ' + 1 ')
   }
 
   return <button onClick={updateValue}>button {props.name}</button>
@@ -67,12 +69,10 @@ export default function App() {
   const compCallback = useCallback((value) => {
     setCompName(value)
   }, [compName])
-
   // 演示没有`[compName]`每次Comp都会调用effect
   // const compCallback = (value) => {
   //   setCompName(value)
   // }
-
   return (
     <>
       <input type="text" value={name} onChange={e => setName(e.target.value)} />

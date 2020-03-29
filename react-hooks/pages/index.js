@@ -1,8 +1,8 @@
 
-import styles from './index.css';
 import Hooks from './hooks';
 import HooksTwo from './hooksTwo';
 import Class from './class';
+import './index.css';
 
 export default function() {
   return (

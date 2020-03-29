@@ -1,10 +1,17 @@
 
+body, button, input{
+  font-size: 24px;
+}
+button{
+  margin: 0 0 8px 8px;
+}
+
 .normal {
-  background: #79F2C2;
+  background: #dbdca1;
 }
 .classDome{
-  background: pink;
+  background: #5a74bb;
 }
 .hooksDome{
-  background: greenyellow;
+  background: #dbdca1
 }
