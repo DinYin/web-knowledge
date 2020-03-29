@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import styles from "./index.css";
 
 function HooksOne() {
   const [count, setCount] = useState(0);
-	  // 类似于componentDidMount 和 componentDidUpdate:
+  useLayoutEffect(() => {
+    console.log(`useLayoutEffect: ${count} `);
+  });
+
 	useEffect(() => {
-    alert(`hooks ${count} `)
+    console.log(`useEffect: ${count} `)
   });
 
   return (

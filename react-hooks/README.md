@@ -3,11 +3,6 @@
 # 安装
 $ yarn global add umi # 或者 npm install -g umi
 
-# 新建应用
-$ mkdir react-hooks && cd react-hooks
-
-# 新建页面
-$ umi generate page index
 
 # 本地开发
 $ umi dev

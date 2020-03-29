@@ -2,17 +2,8 @@
  * 必须要react和react-dom 16.8以上
  */
 
-import React, {
-  memo,
-  createContext,
-  forwardRef,
-
-  useState,
-  useEffect,
-  useCallback,
-  useContext,
-  useRef,
-  useImperativeHandle
+import React, { memo, createContext, forwardRef,
+  useState, useEffect, useCallback, useContext, useRef, useImperativeHandle
 } from 'react'
 import  "./index.css";
 

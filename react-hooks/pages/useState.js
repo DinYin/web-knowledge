@@ -46,7 +46,7 @@ function Counter() {
 function render() {
     // 每次重新渲染的时候，都将 workInProgressHook 指向 firstWorkInProgressHook
     workInProgressHook = firstWorkInProgressHook;
-    // ReactDOM.render(<Counter/>, document.getElementById('root'));
+    ReactDOM.render(<Counter/>, document.getElementById('root'));
     return <p>useState</p>
 }
 
