@@ -23,6 +23,11 @@ const routes = [
     component: require('../hooksAllApi.js').default,
   },
   {
+    path: '/hooksOrigin',
+    exact: true,
+    component: require('../hooksOrigin.js').default,
+  },
+  {
     path: '/hooksTwo',
     exact: true,
     component: require('../hooksTwo.js').default,
@@ -31,6 +36,11 @@ const routes = [
     path: '/',
     exact: true,
     component: require('../index.js').default,
+  },
+  {
+    path: '/useLayoutEffect',
+    exact: true,
+    component: require('../useLayoutEffect.js').default,
   },
   {
     path: '/useState',
