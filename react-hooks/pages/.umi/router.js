@@ -18,6 +18,11 @@ const routes = [
     component: require('../hooks.js').default,
   },
   {
+    path: '/hooksAllApi',
+    exact: true,
+    component: require('../hooksAllApi.js').default,
+  },
+  {
     path: '/hooksTwo',
     exact: true,
     component: require('../hooksTwo.js').default,
@@ -26,6 +31,11 @@ const routes = [
     path: '/',
     exact: true,
     component: require('../index.js').default,
+  },
+  {
+    path: '/useState',
+    exact: true,
+    component: require('../useState.js').default,
   },
   {
     component: () =>
