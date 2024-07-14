@@ -2,7 +2,6 @@
  * 必须要react和react-dom 16.8以上
  */
 
-<<<<<<< HEAD
 import React, {
   memo,
   createContext,
@@ -17,10 +16,6 @@ import React, {
 
   useReducer,
   useMemo,
-=======
-import React, { memo, createContext, forwardRef,
-  useState, useEffect, useCallback, useContext, useRef, useImperativeHandle
->>>>>>> a52e1fdf18adb5c0a1c1da6d388123ba485ea391
 } from 'react'
 import "./index.css";
 
