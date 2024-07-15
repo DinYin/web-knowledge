@@ -38,6 +38,11 @@ const routes = [
     component: require('../index.js').default,
   },
   {
+    path: '/onMouseEnter',
+    exact: true,
+    component: require('../onMouseEnter.js').default,
+  },
+  {
     path: '/useLayoutEffect',
     exact: true,
     component: require('../useLayoutEffect.js').default,
