@@ -13,6 +13,11 @@ const routes = [
     component: require('../class.js').default,
   },
   {
+    path: '/demo',
+    exact: true,
+    component: require('../demo.js').default,
+  },
+  {
     path: '/hooks',
     exact: true,
     component: require('../hooks.js').default,
@@ -41,6 +46,11 @@ const routes = [
     path: '/onMouseEnter',
     exact: true,
     component: require('../onMouseEnter.js').default,
+  },
+  {
+    path: '/ts',
+    exact: true,
+    component: require('../ts.ts').default,
   },
   {
     path: '/useLayoutEffect',
