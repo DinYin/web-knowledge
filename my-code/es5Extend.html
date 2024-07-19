@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // es5的继承 1、原型链继承，2、盗用构造函数继承，3组合继承，4、原型继承、5、寄生继承、6、组合寄生继承
+      // 其中6组合寄生继承最能实现es6的class继承
+      // 1、原型链继承 ，原型上prototype 的引用类型 都会共享，2、没办法在子类型实例化的时候给父类构造函数传参
+      // function Person(){
+      //     this.name = 'ding yin'
+      //     this.age = 31
+
+      // }
+      // Person.prototype.hi = function(flag){
+      //     console.log(`${flag}hi ${this.name} happy ${this.age} year ${this.family.son} 性别 ${this.sex}`)
+      // }
+      // Person.prototype.family = {son: 'yanshu'}
+      // Person.prototype.sex = '女';
+      // // const person1 = new Person();
+      // // const person2 = new Person();
+      // // person1.name ='yds'
+      // // person1.family.son ='yu'
+      // // person1.sex ='男'
+      // // console.log('person1:',person1)
+      // // // person1.hi(1)
+      // // person2.hi(2)
+
+      // function SubPerson(){
+      //     this.subPersonFlag = true
+      //     this.hiSub = function(){
+      //         console.log(1122)
+      //     }
+      // }
+      // SubPerson.prototype = new Person(); // 核心 new Person() 给子类的 prototype
+      // SubPerson.prototype.getSubPerson = function(){
+      //     console.log(this.subPersonFlag)
+      // }
+      // SubPerson.prototype.hiSub = function(){
+      //     console.log(this.subPerson)
+      // }
+      // const subP = new SubPerson();
+      // subP.getSubPerson(); // true
+      // subP.hiSub(); //  11 同名函数 实例 覆盖prototype
+      // subP.hi(3)
+      // console.log(subP)
+      // // hiSub: ƒ ()
+      // // subPersonFlag: true
+      //     // [[Prototype]]: Person
+      //     // age: 31
+      //     // getSubPerson: ƒ ()
+      //     // hiSub: ƒ ()
+      //     // name: "ding yin"
+      //     // [[Prototype]]: Object
+      //         // family: {son: 'yu'}
+      //         // hi: ƒ (flag)
+      //         // sex: "女"
+      //         // constructor: ƒ Person()
+      //             // [[Prototype]]: Object
+      // console.log(subP.subPersonFlag) //true
+      // console.log(subP.sex) // 女
+
+      //2、盗用构造函数，解决了引用类型共享和给父构造函数传参问题，但是不能使用父类的原型，方法必须在构造函数中定义，所以方法不能复用
+      // function SuperType(){
+      //     console.log('SuperType-this:',this)
+      //     this.colors = ['red', 'organe']
+      // }
+      // SuperType.prototype.hi = 'hi'
+
+      // function SubType(){
+      //     console.log('this:',this)
+      //     SuperType.call(this)
+      // }
+      // const sub1 = new SubType();
+      // const sub2 = new SubType();
+      // sub1.colors.push('yello');
+      // console.log('sub1-hi',sub1)
+      // console.log('sub2',sub2)
+      //3、 组合继承 弥补了原型链和盗用构造函数的不足，新问题 父类构造函数会调用两次 浪费性能
+        // function SuperType() {
+        //   this.colors = ["red", "organe"];
+        // }
+        // SuperType.prototype.hi = "hi";
+
+        // function SubType() {
+        //   SuperType.call(this);
+        // }
+        // SubType.prototype = new SuperType();
+        // SubType.prototype.getSub = function () {
+        //   console.log(this.colors);
+        // };
+        // console.log('SubType.prototype:',SubType.prototype)
+        // const sub1 = new SubType();
+        // const sub2 = new SubType();
+        // sub1.colors.push("yello");
+        // sub1.getSub();
+        // console.log("sub1.colors.", sub1.colors);
+        // console.log("sub1-hi", sub1.hi);
+        // console.log("sub2", sub2);
+
+      // 4 原型继承， 其实就是浅复制, 类似于Object.create()
+      //   function object(o) {
+      //     function f() {}
+      //     f.prototype = o;
+      //     return new f()
+      //   }
+      //   let one = {
+      //     a:1,
+      //     b: [1,2]
+      //   }
+      //   let two = object(one);
+      //   let three = object(one)
+      //   two.a = 2;
+      //   two.b[0] = 2;
+      //   console.log(one,two,three)
+      //   const twoC = Object.create(one)
+      //   const threeC = Object.create(one)
+      //   twoC.a = 2;
+      //   twoC.b[0] = 2;
+      //   console.log(one,twoC,threeC)
+      // 5、寄生继承 在原型基础上 对原对象复制或者处理之后返回一个新对象，在新对象上添加一些特有的方法来增强这个对象，也不影响原对象
+      // createAnother2 直接赋值origin 导致originData上也有了sayHi
+      // function object(o) {
+      //     function f() {}
+      //     f.prototype = o;
+      //     return new f()
+      //   }
+      // function createAnother(origin){
+      //     const newObj = object(origin)
+      //     newObj.sayHi=function(){
+      //         console.log(this.age)
+      //     }
+      //     return newObj
+      // }
+      // function createAnother2(origin){
+      //     origin.sayHi=function(){
+      //         console.log(this.age)
+      //     }
+      //     return origin
+      // }
+      // const originData = {age:11,man:{sex:'man'}}
+      // const another = createAnother(originData)
+      // const another2 = createAnother2(originData)
+      // console.log(originData,another,another2)
+
+      // 6、组合寄生，解决了组合继承父构造函数调用两次的问题,是引用类型继承的最佳模式
+      function object(o) {
+          function f() {}
+          f.prototype = o;
+          return new f()
+        }
+      function inheritPrototypes(subT,superT){
+          const pro = object(superT.prototype);
+          pro.constructor = subT
+          console.log('pro:',pro)
+          subT.prototype = pro;
+      }
+      function SuperType(){
+          this.age=11
+      }
+      function SubType(){
+          SuperType.call(this)
+      }
+      inheritPrototypes(SubType,SuperType)
+      
+      const s1 = new SubType();
+      console.log(s1 instanceof SubType)
+      console.log(s1 instanceof SuperType)
+      console.log(s1.constructor === SubType)
+      console.log(s1.constructor === SuperType)
+
+      // constructor属性,可以确定原型链的三种方式 instanceof .prototype.isPrototypeOf 和 constructor，但是用对象字面量重写prototype之后 constructor会丢失
+      function Person(){}
+      const p1 = new Person()
+      const p2 = new Person()
+      console.log(p1)
+      console.log(p1.constructor === Person) // true
+      console.log(p2.constructor === Person) // true
+      console.log(Person.prototype.constructor === Person) // true
+
+      // 用es5 实现 es6的类
+      /**
+     * class Animal {
+          constructor(name) {
+              this.name = name;
+          }
+
+          speak() {
+              console.log(this.name + ' makes a noise.');
+          }
+      }
+
+      class Dog extends Animal {
+          constructor(name, breed) {
+              super(name);
+              this.breed = breed;
+          }
+
+          bark() {
+              console.log(this.name + ' barks.');
+          }
+      }
+
+      const myDog = new Dog('Buddy', 'Golden Retriever');
+      myDog.speak(); // Buddy makes a noise.
+      myDog.bark(); // Buddy barks.
+    */
+
+    // function Animal(name){
+    //   // 这部分模拟了 ES6 中的 constructor
+    //   this.name = name
+    // }
+    // Animal.prototype.speak = function(){
+    //   console.log(this.name + ' makes a noise.');
+    // }
+    // function Dog(name, breed){
+    //   Animal.call(this,name)
+    //   this.breed = breed
+    // }
+    // Dog.prototype = Object.create(Animal.prototype);
+    // Dog.prototype.constructor = Dog;
+    // Dog.prototype.bark = function(){
+    //   console.log(this.name + ' barks.')
+    // }
+    // const myDog = new Dog('BUddy', 'Golden Retriever')
+    // myDog.speak();
+    // myDog.bark();
+    </script>
+  </body>
+</html>

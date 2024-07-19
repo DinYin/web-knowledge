@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<p>...content before scripts...</p>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => alert("DOM fully loaded and parsed after defer!"));
+</script>
+
+<script>
+	window.addEventListener("message", function(event) {
+		console.log("found event in post!", event)
+	}); 
+	window.parent.postMessage({
+	   'data': ["some data"]
+	},"*");   
+</script>
+
+<script async  src="https://javascript.info/article/script-async-defer/long.js?speed=1"></script>
+
+<p color="red">...content after scripts...</p>
+
+</body>
+</html>

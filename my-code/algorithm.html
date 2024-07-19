@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * 三数之和
+       * @param {number[]} nums
+       * @return {number[][]}
+       */
+      //   const test = [-1, 0, 1, 2, -1, -4, -1, 1, 1, 1];
+      //   var threeSum = function (nums) {
+      //     nums.sort((a, b) => a - b);
+      //     const arr = [];
+      //     const l = nums.length;
+      //     if (nums == null || l < 3 || nums[0] > 0) {
+      //       return arr;
+      //     }
+      //     for (let i = 0; i < l; i++) {
+      //       if (nums[i] > 0) break;
+      //       if (i > 0 && nums[i] === nums[i - 1]) {
+      //         continue;
+      //       }
+      //       let left = i + 1;
+      //       let right = l - 1;
+      //       while (left < right) {
+      //         const sum = nums[i] + nums[left] + nums[right];
+      //         if (sum === 0) {
+      //           arr.push([nums[i], nums[left], nums[right]]);
+      //           while (left < right && nums[left] == nums[left + 1]) left++;
+      //           while (left < right && nums[right] == nums[right - 1]) right--;
+      //           left++;
+      //           right--;
+      //         }
+      //         if (sum < 0) left++;
+      //         if (sum > 0) right--;
+      //       }
+      //     }
+      //     return arr;
+      //   };
+      //   const res = threeSum(test);
+      //   console.log("res:", res);
+
+      /**20. 有效的括号
+简单
+相关标签
+相关企业
+提示
+给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串 s ，判断字符串是否有效。
+
+有效字符串需满
+ * @param {string} s
+ * @return {boolean}
+ */
+      var isValid = function (s) {
+        const stack = [];
+        const map = {
+          "(": -1,
+          ")": 1,
+          "[": -2,
+          "]": 2,
+          "{": -3,
+          "}": 3,
+        };
+        for (let i = 0; i < s.length; i++) {
+          if (map[s[i]] < 0) {
+            stack.push(s[i]);
+          } else {
+            const last = stack.pop();
+            if (map[last] + map[s[i]] != 0) {
+              return false;
+            }
+          }
+        }
+        if (stack.length > 0) return false;
+
+        return true;
+      };
+      const str = "(]";
+      isValid(str);
+
+      // 单链表
+      class Node {
+        constructor(v,next){
+            this.value = v;
+            this.next = next;
+        }
+        hi(params) {
+          console.log(params)  
+        }
+      }
+      class LinkList{
+        constructor(v,next){
+            this.size = 0;
+            this.docment = new Node(null, null)
+            console.log('this:',this)
+        }
+      }
+      const likn =  new LinkList(1,2)
+    </script>
+  </body>
+</html>

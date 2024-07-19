@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="some-element-you-want-to-animate">some-element-you-want-to-animate</div>
+
+  <!-- <script>
+		let person = {
+			year_:1992,
+			edition: 1,
+		}
+		Object.defineProperty(person, 'year', {
+			// configurable: true, //访问器属性 configurable、enumerable是默认true；
+			get(){
+				return this.year_
+			},
+			set(newV){
+				if(newV>1992){
+					this.year_ = newV;
+					this.edition += newV-1992;
+				}
+			}
+		})
+		person.year = 2024;
+		let describe = Object.getOwnPropertyDescriptor(person, 'year');
+		console.log(Object.getOwnPropertyDescriptors(person))
+	
+		console.log(describe.configurable)
+		console.log(describe.enumerable)
+		console.log(typeof describe.get)
+		delete person.year
+		console.log(person)
+
+		// Object.defineProperty(person, 'name', {
+		// 	value: 'dingyin',
+		// })
+		// console.log(person.name);
+		// Object.defineProperty(person, 'name', {
+		// 	value: 'dingyin', 
+		// 	writable: true,数据属性 writable、enumerable、configurable 默认false
+		// 	enumerable:true,
+		// 	configurable: true,
+		// })
+
+		// person.name = 'yudongsheng'
+		// delete person.name;
+		// console.log(person.name);
+
+	</script> -->
+  <script>
+    // 对象赋值
+    // let des={};
+    // let tar = {id:'ss'}
+    // let res = Object.assign(des,tar); // 修改目标对象des，也会返回修改后的目标对象
+    // console.log('des:',des, 'tar:',tar,'res:',res)
+    // console.log(res === tar);
+    // console.log(res === des);
+    // console.log(tar === tar);
+    // 覆盖属性，通过目标对象上的set函数观察覆盖过程
+    // const target = {
+    // 	value: 1,
+    // 	set id(x){
+    // 		console.log(x)
+    // 		this.value = x
+    // 	}
+    // }
+    // console.log(target)
+    // console.log(Object.getOwnPropertyDescriptors(target))
+
+    // Object.assign(target, {id:2},{id:3},{id:4})
+
+    // console.log(target)
+    // console.log(Object.is(0,+0))
+
+  </script>
+
+  <script>
+    // 构造函数
+    // function Person(name, age) {
+    //   this.name = name;
+    //   this.age = age;
+    //   this.sex = 'man';
+    //   this.color = ['red', 'blue']
+    //   this.sayName = function () {
+    //     console.log(this.name)
+    //   }
+    // }
+    // Person.prototype.hi = ['hi']
+    // Person.prototype.sub = ['sub']
+
+    // const p1 = new Person();
+    // const p2 = new Person();
+
+    // const p3 = new Person('dingyin');
+    // p3.color.push('green');
+    // console.log(p3.color)
+    // sayN和p3.sayName() 执行的上下文的this不一样， p3.sayName()的this是p3，sayN的this是window
+    // const sayN = p3.sayName;
+    // console.log(p3.sayName()) ／／ 打印dingyin 
+    // console.log( sayN) 
+    // console.log( sayN()) // 打印空
+    // const p4 = new Person;
+    // console.log(p4,p4.color)
+
+
+    // 构造函数上的引用值this.color不会共享，原型上的引用值prototype.hi会共享
+    // console.log('p1.color:',p1.color); // ['red', 'blue']
+    // p1.color.push('green');
+    // p1.hi.push('dy');
+    // console.log(p1.color,p1.hi); //  ['red', 'blue', 'green']  ['hi', 'dy']
+    // console.log(p2.color,p2.hi); //  ['red', 'blue'] (2) ['hi', 'dy']
+
+    // 原型链继承 构造函数上的引用值 和 ，原型上的引用值都会共享
+    // function SubPerson(){
+    //   this.color2=['blue']
+    // }
+    // SubPerson.prototype = new Person();
+
+    // const three = new SubPerson();
+    // const four = new SubPerson();
+    // three.color.push('green');
+    // three.hi.push('green');
+    // three.sex = 'woman';
+
+    // console.log('three:', three.sex,three.hi,three.color,three.color2)
+    // console.log('four:', four.sex,four.hi,four.color,four.color2)
+
+    // 原型式继承
+    // function createObj(o){
+    //   function F(){
+
+    //   }
+    //   F.prototype= o;
+    //   return  new F()
+    // }
+    // const obj = {
+    //   a:1,
+    //   b:[1,2,3]
+    // }
+    // const obj2 = createObj(obj);
+    // obj2.a=100
+    // obj2.b.push(100)
+    // console.log('obj:',obj)
+    // console.log('obj2:',obj2.a,obj2.b,obj2)
+
+
+    // 盗用构造函数继承，经典继承, 只会继承构造函数，不能继承构造函数上的原型
+    // function SubPerson(){
+    //   this.color2=['blue']
+    //   Person.call(this) 
+    //   this.color=['blue'] // 覆盖父类的this.color
+    // }
+
+    // const subP1 = new SubPerson();
+    // subP1.sub.push('yds'); //demo.html:111 Uncaught TypeError: Cannot read properties of undefined (reading 'push')
+    // console.log('p1:',p1)
+    // console.log('subP1:',subP1) // color: (2) ['red', 'blue']
+    // const subP2 = new SubPerson();
+    // console.log('subP2:',subP1.sub) //undefined 
+    // console.log('subP2的原型',SubPerson.prototype.isPrototypeOf(subP2) )  // true
+    // console.log('subP2的原型',Person.prototype.isPrototypeOf(subP2) )  // false
+    
+
+
+    // const k = Symbol('k')
+    // p1.name = 'dy'
+    // p1[k] = 'k'
+    // console.log(Object.keys(p1))
+    // console.log(Object.getOwnPropertyNames(p1))
+    // console.log(Object.getOwnPropertySymbols(p1))
+
+    // console.log(Object.keys(Person.prototype))
+    // Object.keys:
+
+    // 返回一个数组，包含对象自身可枚举属性（enumerable properties）的键。
+    // 不包括继承的属性。
+    // 只返回可枚举的属性。
+    // Object.getOwnPropertyNames:
+
+    // 返回一个数组，包含对象自身所有属性的键（包括不可枚举属性）。
+    // 不包括继承的属性。
+    // 返回所有属性，无论它们是否可枚举。
+    // console.log(typeof Person.prototype)
+    // console.log(Person.prototype)
+
+    // console.log(Object.getOwnPropertyDescriptors(p1))
+    // console.log(Object.getOwnPropertyDescriptors(Person.prototype))
+
+    // console.log(p1,Person)
+    // console.log(p1.constructor === Person)
+    // console.log(p1._proto)
+    // class类 ,p2 是constructor的实例，constructor里的this.greeting p2 能读到，P2读不到Person.greeting = ['hi'] 
+    // 原型链上的引用类型 会共享
+    class Person {
+      constructor(greeting){
+        this.greeting = greeting || 'ni hao '
+        this.sayThis = () => console.log('instance: ',this)
+      }
+      state = {
+        a:1
+      }
+      sayName(){
+        // console.log(Person.greeting)
+        // console.log('this.name:', this.name)
+        console.log('prototype', this)
+      }
+      static byOwnClass(id='byOwnClass'){
+        console.log(id, this, this.state, Person.state)
+      }
+    }
+    class subPerson extends Person{
+      constructor(){
+        // console.log('super:', this)
+        // demo.html:216 Uncaught ReferenceError: Must call super constructor in derived class before accessing 'this' or returning from derived constructor
+      }
+    }
+
+    // console.log(subPerson.byOwnClass('subPerson11:')) //subPerson11: class subPerson extends Person{}
+    // console.log(Person.byOwnClass('Person11:')) // Person11: class Person { constructor(){
+      // console.log(Person.state, Person.greeting)
+    Person.greeting = ['hi'];
+    Person.prototype.name = ['dingyin'];
+    const p1 = new Person( 'new dy'); 
+    p1
+    const subp1 = new subPerson();
+    // p1.sayThis(); //instance:  Person {greeting: 'ni hao ', sayThis: ƒ}
+    // p1.sayName(); // prototype Person {greeting: 'ni hao ', sayThis: ƒ}
+    // // p1.byOwnClass(); // TypeError: p1.byOwnClass is not a function
+    // Person.prototype.sayName() //prototype {name: Array(1), constructor: ƒ, sayName: ƒ}
+    // Person.byOwnClass() // byOwnClass class Person {
+    //                     // constructor(){
+    //                     //   this.greeting = 'ni hao '
+    //                     //   this.sayThis = () => console.log('instance: ',this)
+    //                     // }
+    //                     // sayName(){
+    //                     //   // console.log(Person.greeting)
+    //                     //   //…
+    // console.log("p1:",p1)
+    // console.log("subp1:",subp1)
+
+    // const p2 = new Person();
+    // console.log("p2:",p2.greeting )
+    // p2.greeting.push('yds')
+    // p2.name.push('yds')
+    // p2.sayName();
+
+    // 继承内置
+  //  const  arr = new Array(1,2,3,4)
+  //  const  arr1 = new Array([1,2,3,4])
+  //  console.log('arr:',arr,arr1)
+  //  class SuperArray extends Array{
+  //   suffle(){
+  //     //洗牌算法
+  //   }
+  //  }
+
+  // class Vehicle{
+
+  // }
+  // let FooMixin = (Superclass) => class extends Superclass{
+  //   foo(){
+  //     console.log('foo')
+  //   }
+  // };
+  // let BarMixin = (Superclass) => class extends Superclass{
+  //   bar(){
+  //     console.log('Bar')
+  //   }
+  // }
+  // let BazMixin = (Superclass) => class extends Superclass{
+  //   baz(){
+  //     console.log('Baz')
+  //   }
+  // }
+  //   // arr.reduce(callback(accumulator, currentValue[, index[, array]])[, initialValue])
+  // function mix(base,...mixs){
+  //   return mixs.reduce((accumulator, currentValue)=> currentValue(accumulator),base)
+  // }
+  // let mixF1 = mix(Vehicle,FooMixin,BarMixin,BazMixin)
+  // let mixF2 = FooMixin(BarMixin(BazMixin(Vehicle)))
+  // // console.log(mixF1)
+  // // console.log(mixF2)
+  // class Bus extends mixF1 {}
+  // class Car extends mixF2 {}
+  // let b = new Bus();
+  // let c = new Car();
+  // b.foo()
+  // b.bar()
+  // b.baz()
+
+  // c.foo()
+  // c.bar()
+  // c.baz()
+  </script>
+
+
+<script>
+  // ... 扩展运算 ,函数里应用 参数序列变数组
+    // function kuo (...args){
+    //   console.log(args); // [1, 2, 3]
+    // }
+    // kuo(1,2,3);
+
+    function handleResize(a) {
+      console.log('Window resized');
+    }
+
+    // const throttledResize = throttle(handleResize, 2000);
+
+    // window.addEventListener('resize', throttledResize);
+
+    // function throttle(func, wait) {
+    //   let lastTime = 0;
+
+    //   return function (...args) {
+    //     const now = Date.now();
+
+    //     if (now - lastTime >= wait) {
+    //       lastTime = now;
+    //       func.apply(this, args);
+    //     }
+    //   };
+    // }
+
+  </script>
+  <!-- <script>
+    // 使用requestAnimationFrame来实现 setInterval和 setTimeOut
+    // setInterval
+    function clearMySetInt(id) {
+      window.cancelAnimationFrame(id)
+    }
+    function mySetInt(callback, interval){
+      let start = 0;
+      let intId;
+      const loop = (currentTime) => {
+        intId = window.requestAnimationFrame(loop)
+        if(currentTime - start >= interval){
+          console.log('currentTime - start:',currentTime - start)
+          start=currentTime;
+          callback(intId)
+          // window.cancelAnimationFrame(intId)
+        }
+      }
+      intId = window.requestAnimationFrame(loop)
+      return intId
+
+    };
+    let aNum = 0;
+    const myIetId = mySetInt((id)=>{
+      aNum++
+      console.log('aNum:',aNum, 'myIetId:',myIetId, 'id:',id)
+      if(aNum>3){
+        clearMySetInt(id)
+      //   window.cancelAnimationFrame(id)
+      }
+    },1000)
+    console.log('aNum:',aNum, 'myIetId:',myIetId)
+    // setInterval(()=>{
+    //   console.timeEnd('aaa')
+    //   console.time('aaa')
+
+
+    // },1000)
+    
+  </script> -->
+  <!-- <script>
+    const element = document.getElementById("some-element-you-want-to-animate");
+    let start, previousTimeStamp;
+    let done = false;
+
+    function step(timestamp) {
+      // console.log("timestamp:",timestamp, 'performance.now():',performance.now())
+      if (start === undefined) {
+        start = timestamp;
+      }
+      const elapsed = timestamp - start;
+
+      if (previousTimeStamp !== timestamp) {
+        // 这里使用 Math.min() 确保元素在恰好位于 200px 时停止运动
+        const count = Math.min(0.1 * elapsed, 200);
+        element.style.transform = `translateX(${count}px)`;
+        if (count === 200) done = true;
+      }
+
+      if (elapsed < 2000) {
+        // 2 秒之后停止动画
+        previousTimeStamp = timestamp;
+        if (!done) {
+          window.requestAnimationFrame(step);
+        }
+      }
+    }
+
+    window.requestAnimationFrame(step);
+
+  </script> -->
+  <!-- <script>
+    // 闭包
+    function addTo256() {
+      const obj = {
+
+      };
+
+      function add(num) {
+        if (obj[num]) {
+          return obj[num]
+        }
+        const newN = num + 256;
+        obj[num] = newN;
+        console.log("obj:", obj)
+      }
+      return add;
+    }
+
+  </script> -->
+  <!-- <script>
+    // Symbol.hasInstance 使用instanceof时会默认调用，https://blog.csdn.net/weixin_41144066/article/details/89375491
+    class PrimitiveString {
+      [Symbol.hasInstance](x) {
+        console.log('动态:',x)
+        // return typeof x === 'string'
+        return x && x.custom === 'expected2'
+      }
+      static a(x){
+        console.log(x)
+      }
+      static [Symbol.hasInstance](x) {
+        console.log('静态:',x)
+        // return typeof x === 'string'
+        return x && x.custom === 'expected'
+      }
+    }
+    const obj = {custom: 'expected'};
+    const obj2 = {custom: 'expected2'};
+    const obj3 = new PrimitiveString();
+    // console.log('hello world' instanceof PrimitiveString)
+    console.log(obj instanceof PrimitiveString) // 静态: {custom: 'expected'} ,实例上的 true
+    console.log(obj2 instanceof new PrimitiveString()) // 动态: {custom: 'expected2'}, 原型上的 true
+    console.log(obj3 instanceof PrimitiveString) // 静态: PrimitiveString {}, 实例上的 false, static 修改了instance，注释static [Symbol.hasInstance](x)  即是true
+  </script> -->
+
+  <!-- <script>
+    // this指向
+    function foo() {
+      console.log(this.a)
+    }
+    var a = 1
+    foo()
+
+    const obj = {
+      a: 2,
+      foo: foo
+    }
+    obj.foo()
+
+    const c = new foo()
+  </script> -->
+
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // call
+      Function.prototype.myCall = function (context) {
+        if (typeof this !== "function") {
+          throw new TypeError("Error");
+        }
+        context = context || window;
+        context.fn = this;
+        const args = [...arguments].slice(1);
+        const result = context.fn(...args);
+        delete context.fn;
+        return result;
+      };
+      b = 0;
+      function a() {
+        return function (d, f) {
+          console.log("this.b:", this.b, d, f);
+          return "ding yin";
+        };
+      }
+      let c = a();
+        // c.myCall({b:2},100,1001)
+
+      // apply 入参是数组
+      Function.prototype.myApply = function (context) {
+        if (typeof this !== "function") {
+          throw new TypeError("Error");
+        }
+        context = context || window;
+        context.fn = this;
+        const args = [...arguments];
+        let res;
+        if (args[1]) {
+          res = context.fn(...args[1]);
+        } else {
+          res = context.fn();
+        }
+        delete context.fn;
+        return res;
+      };
+    //   c.myApply({ b: 3 }, [4, 5]);
+
+      // bind
+      Function.prototype.myBind = function(context, ...initialValue){
+        if(typeof this !== "function"){
+            throw new TypeError("this is not a function")
+        }
+        _this= this;
+        console.log('this:',this)
+        return function F(...fValue){
+            if(this instanceof F){
+                new _this(...initialValue, ...fValue)
+            }else{
+                _this.apply(context,initialValue.concat(fValue))
+            }
+        }
+      }
+
+      function testBind(...params){
+        // console.log('testBind:',this, 'params',params)
+      }
+      const tB = testBind.myBind({a:'test'},'d','y','i')
+    //   const newTB = new tB('new','tb')
+    //   tB(5,6,7)
+    //   tB(5,6,7)
+
+    //   本期思考题
+    //     用 JS 实现一个无限累加的函数 add，示例如下：
+    //     add(1); // 1
+    //     add(1)(2);  // 3
+    //     add(1)(2)(3)； // 6
+    //     add(1)(2)(3)(4)； // 10 
+    // 以此类推
+    function addP(x){
+        return function(y){
+            x+y
+        }
+    }
+    const add = addP(0);
+
+    add(1)
+    add(1)(2)
+    add(1)(2)(3)
+
+
+
+
+    </script>
+  </body>
+</html>

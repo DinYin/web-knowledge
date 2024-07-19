@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function deepClone(obj) {
+        function isObject(o) {
+          return (
+            (typeof o === "object") && o !== null
+          );
+        }
+
+        if (!isObject(obj)) {
+          throw new Error("非对象");
+          console.log("非对象") // 不会打印 throw 就结束了
+        }
+
+        let isArray = Array.isArray(obj);
+        let newObj = isArray ? [...obj] : { ...obj };
+        Reflect.ownKeys(newObj).forEach((key) => {
+          newObj[key] = isObject(obj[key]) ? deepClone(obj[key]) : obj[key];
+        });
+
+        return newObj;
+      }
+      let f = {
+        fun: function(){
+
+        }
+      }
+    //   console.log({...f.fun})
+      let obj = {
+        a: [1, 2, 3],
+        b: {
+          c: 2,
+          d: 3,
+          e: function(){
+            console.log('ee')
+            }
+        },
+      };
+      let newObj = deepClone(obj); // 深拷贝
+      let newObj2 = {... obj}; // 浅拷贝
+    //   let newObj3 = deepClone(1); // 非对象
+      obj.b.c = 1;
+      obj.b.e = 1;
+      console.log(obj); 
+      console.log(newObj); 
+      console.log(newObj2); 
+      newObj.b.e();
+    </script>
+  </body>
+</html>

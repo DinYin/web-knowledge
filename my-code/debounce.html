@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <script>
+      // 防抖
+      function search(a) {
+        console.log("search", arguments[0], "a:", a);
+      }
+      function debounce(callback, time) {
+        let timeId;
+        return function () {
+          const that = this;
+          const args = arguments;
+          clearTimeout(timeId);
+          timeId = setTimeout(() => {
+            callback.apply(that, args);
+          }, time);
+        };
+      }
+
+      let aa = "aaa";
+      const deb = debounce(search, 500);
+      //   setInterval(() => deb(aa), 490);
+      //   setInterval(() => deb(aa), 510);
+
+      // 节流
+      function throttle(callback, time) {
+        let inth;
+        return function () {
+          const that = this;
+          const args = arguments;
+          if (!inth) {
+            callback.apply(that, args);
+            inth = true;
+            setTimeout(() => (inth = false), time);
+          }
+        };
+      }
+      const throt = throttle(search, 1000);
+      setInterval(() => throt(11), 100);
+    </script> -->
+    <script>
+      //fuxi throttle
+      function throttle(cb, time) {
+        let inth;
+        return function () {
+          if (!inth) {
+            const that = this;
+            cb.apply(that, arguments);
+            // cb(...arguments);
+
+            inth = true;
+            setTimeout(() => {
+              inth = false;
+            }, time);
+          }
+        };
+      }
+      // const search = throttle((pa)=>{
+
+      //   console.log('search',pa)
+      // },1000)
+
+      // setInterval(()=>{
+      //   console.log('setInterval')
+      //   search(1)
+      // },100)
+      // 复习防抖
+      function debounce(cb, time) {
+        let timeId;
+        return function () {
+          clearTimeout(timeId);
+          const args = arguments;
+          timeId = setTimeout(() => {
+            cb(args);
+          }, time);
+        };
+      }
+      // const search = debounce(() => {
+      //   console.log("search");
+      // }, 1000);
+
+      // setInterval(() => {
+      //   console.log("setInterval");
+      //   search();
+      // }, 2000);
+    </script>
+  </body>
+</html>

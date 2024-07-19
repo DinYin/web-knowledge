@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 数组去重的几个方法
+        // 1、set
+        const arr = [1,2,3,4,3,3];
+        const mySet =  new Set(arr);
+        console.log(mySet,[...mySet]);
+
+        // 2 push
+        const newArr = [];
+        arr.forEach((ele)=> !newArr.includes(ele)&&newArr.push(ele) )
+        console.log('newArr:',newArr)
+
+        // 3 map
+        const myMap =  new Map();
+        // myMap.set('a',1)
+        // myMap.set('b',2)
+        // myMap.set('a',111)
+
+        console.log('myMap:',myMap)
+        const arrMap = new Map(arr.map((ele)=> [ele,ele])).values()
+        console.log("arrMap:",arrMap, [...arrMap])
+
+        //4 filter
+        const uniqueArr = arr.filter((ele,i,self)=> self.indexOf(ele) === i)
+        console.log('uniqueArr:',uniqueArr)
+
+    </script>
+</body>
+</html>
