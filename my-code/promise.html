@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>Promise</p>
+    <script>
+      //   function doSomething(callback) {
+      //     if (Math.random() > 0.5) {
+      //       console.log("同步");
+      //       callback();
+      //     } else {
+      //       setTimeout(() => {
+      //         console.log("异步");
+      //         callback();
+      //       }, 1000);
+      //     }
+      //   }
+      //   let value = 1;
+      //   doSomething(() => {
+      //     value = 2;
+      //   });
+      //   console.log(value); // 异步1，同步2
+
+      //   try {
+      //     Promise.reject(new Error("bar"));
+      //   } catch (error) {
+      //     console.log(error);
+      //   }
+      // promise.all 只要有一个reject就立马结束并返回一个reject的promise，可以用catch返回一个resolve promise，
+      // catch和then 默认返回一个resolve的promise，可以显示指定返回内容
+      const promise1 = Promise.resolve(3);
+      const promise2 = 42;
+      const promise3 = new Promise((resolve, reject) => {
+        setTimeout(resolve, 100, "foo");
+      });
+      const promise4 = Promise.reject(4); // 拒绝 reject
+      const promise5 = Promise.reject(5).catch(() => 33); // resolve
+      const promise6 = Promise.reject(6).catch(() => Promise.reject(5)); // reject
+      //   setTimeout(()=>{
+      //     console.log(promise1,promise2,promise3,promise4,promise5)
+      //   },200)
+      //
+      //   Promise.all([promise1, promise2, promise3]).then((values) => {
+      //     console.log('成功',values);
+      //   }).catch(values => {
+      //     console.log('拒绝',values);
+      //   }).finally(()=>{
+      //     console.log('finally')
+      //   })
+      //   Promise.allSettled([promise1, promise2, promise3,promise4,promise5,promise6]).then((values)=>{
+      //     console.log('allsettled:',values)
+      //   })
+      // 1、只有当传递给 Promise.all 的 iterable 为空时，Promise.all 才会同步解决
+      //   const p = Promise.all([]); // 将会立即解决
+      //     const p2 = Promise.all([1337, "hi"]); // 非 promise 值将被忽略，但求值是异步进行的
+      //     console.log("p:",p);
+      //     console.log("p2:",p2);
+      //   Promise.all([]).then((value) => console.log('all',value)).catch((reason)=> console.log('all-reason:',reason))
+      // 2、allSettled 已兑现（already fulfilled），如果传入的 iterable 为空的话。
+      //   Promise.allSettled([]).then((value) => console.log('allSettled',value)).catch((reason)=> console.log('allSettled-reason:',reason))
+      // 3、any 已拒绝（already rejected），如果传入的 iterable 为空的话
+      //   Promise.any([]).then((value) => console.log('any',value)).catch((reason)=> console.log('any-reason:',reason))
+      Promise.any([promise4, promise6])
+        .then((value) => console.log("any", value))
+        .catch((reason) => console.log("any-reason:", reason));
+      //   4、race 一个空的可迭代对象会导致返回的 Promise 一直处于待定状态
+      const promiseRace = Promise.race([]);
+      console.log("promiseRace:", promiseRace); //Promise {<pending>}
+      setTimeout(() => {
+        console.log("promiseRace:", promiseRace);
+      }, 2000); // Promise {<pending>}
+      function doSomething(action) {
+        return Promise.try(action)
+          .then((result) => console.log(result))
+          .catch((error) => console.error(error))
+          .finally(() => console.log("Done"));
+      }
+
+      doSomething(() => "Sync result");
+    </script>
+  </body>
+</html>
