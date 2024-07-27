@@ -18,6 +18,11 @@ const routes = [
     component: require('../demo.js').default,
   },
   {
+    path: '/errorBoundary',
+    exact: true,
+    component: require('../errorBoundary.tsx').default,
+  },
+  {
     path: '/hooks',
     exact: true,
     component: require('../hooks.js').default,
